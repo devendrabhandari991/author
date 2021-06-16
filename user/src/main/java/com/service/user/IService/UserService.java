@@ -6,14 +6,14 @@ import com.service.user.dto.UserDTO;
 
 public interface UserService {
 
-	List<UserDTO> getAllUsers();
+  List<UserDTO> getAllUsers();
 
-	UserDTO getUserById(Long userId);
+  UserDTO getUserById(Long userId);
 
-	boolean saveUser(UserDTO userDTO);
+  boolean saveUser(UserDTO userDTO);
 
-	boolean deleteUser(Long userId);
+  boolean deleteUser(Long userId);
 
-	boolean updateUser(UserDTO userDTO);
+  boolean updateUser(UserDTO userDTO);
 
 }

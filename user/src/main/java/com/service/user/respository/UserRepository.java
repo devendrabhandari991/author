@@ -10,6 +10,6 @@ import com.service.user.entity.Users;
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
 
-	List<Users> findByDeletedFalse();
+  List<Users> findByDeletedFalse();
 
 }

@@ -22,48 +22,54 @@ import com.service.user.misc.Utility;
 @RestController
 @RequestMapping("/users")
 public class UserController {
-	
-	@Autowired
-	private UserService userService;
-	
-	@GetMapping
-	public ResponseEntity<List<UserDTO>> getAllUsers(){
-		return new ResponseEntity<List<UserDTO>>(userService.getAllUsers(),HttpStatus.OK);
-	}
-	
-	@GetMapping("/{userId}")
-	public ResponseEntity<UserDTO> getUser(@PathVariable("userId") Long userId) {
-		return new ResponseEntity<UserDTO>(userService.getUserById(userId),HttpStatus.OK);
-	}
-	
-	@PostMapping
-	public ResponseEntity<String> saveUser(@RequestBody UserDTO userDTO) {
-		if (!Utility.validateRequest(userDTO)) {
-			return new ResponseEntity<String>("Please ensure all inputs are correct !!", HttpStatus.BAD_REQUEST);
-		}
-		if (userService.saveUser(userDTO)) {
-			return new ResponseEntity<String>("User Id :"+ userDTO.getUserId() + " ,user saved sucessfully !!", HttpStatus.OK);
-		}
-		return new ResponseEntity<String>("Error occurered, Please try after sometime", HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
-	@DeleteMapping("/{userId}")
-	public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId){
-		if(userService.deleteUser(userId)) {
-			return new ResponseEntity<String>("User record deleted successfully !! ",HttpStatus.OK);
-		}
-		return new ResponseEntity<String>("Issue while deleting record Please try aftersome time !! ",HttpStatus.INTERNAL_SERVER_ERROR);
-	}
-	
-	@PutMapping
-	public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO){
-		if(StringUtils.isEmpty(userDTO.getUserId())) {
-			return new ResponseEntity<String>("User Id mandatory, Please provide !!", HttpStatus.BAD_REQUEST); 
-		}
-		if(userService.updateUser(userDTO)) {
-			return new ResponseEntity<String>("User record updated successfully !! ",HttpStatus.OK);
-		}
-		return new ResponseEntity<String>("Issue while updating record Please try aftersome time !! ",HttpStatus.INTERNAL_SERVER_ERROR);
-	}
+
+  @Autowired
+  private UserService userService;
+
+  @GetMapping
+  public ResponseEntity<List<UserDTO>> getAllUsers() {
+    return new ResponseEntity<List<UserDTO>>(userService.getAllUsers(), HttpStatus.OK);
+  }
+
+  @GetMapping("/{userId}")
+  public ResponseEntity<UserDTO> getUser(@PathVariable("userId") Long userId) {
+    return new ResponseEntity<UserDTO>(userService.getUserById(userId), HttpStatus.OK);
+  }
+
+  @PostMapping
+  public ResponseEntity<String> saveUser(@RequestBody UserDTO userDTO) {
+    if (!Utility.validateRequest(userDTO)) {
+      return new ResponseEntity<String>("Please ensure all inputs are correct !!",
+          HttpStatus.BAD_REQUEST);
+    }
+    if (userService.saveUser(userDTO)) {
+      return new ResponseEntity<String>(
+          "User Id :" + userDTO.getUserId() + " ,user saved sucessfully !!", HttpStatus.OK);
+    }
+    return new ResponseEntity<String>("Error occurered, Please try after sometime",
+        HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @DeleteMapping("/{userId}")
+  public ResponseEntity<String> deleteUser(@PathVariable("userId") Long userId) {
+    if (userService.deleteUser(userId)) {
+      return new ResponseEntity<String>("User record deleted successfully !! ", HttpStatus.OK);
+    }
+    return new ResponseEntity<String>("Issue while deleting record Please try aftersome time !! ",
+        HttpStatus.INTERNAL_SERVER_ERROR);
+  }
+
+  @PutMapping
+  public ResponseEntity<String> updateUser(@RequestBody UserDTO userDTO) {
+    if (StringUtils.isEmpty(userDTO.getUserId())) {
+      return new ResponseEntity<String>("User Id mandatory, Please provide !!",
+          HttpStatus.BAD_REQUEST);
+    }
+    if (userService.updateUser(userDTO)) {
+      return new ResponseEntity<String>("User record updated successfully !! ", HttpStatus.OK);
+    }
+    return new ResponseEntity<String>("Issue while updating record Please try aftersome time !! ",
+        HttpStatus.INTERNAL_SERVER_ERROR);
+  }
 
 }
